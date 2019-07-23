@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+
+        async function getJson(url) {
+            const request = new Request(url, {method: 'GET'});
+            const response = await fetch(request);
+            const o = await response.json();
+            return o;
+        }
+
+        function insertUrlParameters(s, map) {
+            map.forEach((value, key, map) => {
+                s = s.replace(":" + key, value);
+            });
+            return s;
+        }
+
+        async function getGitHubApi(api, parameters) {
+            const base = 'https://api.github.com';
+            const query = base + insertUrlParameters(api, parameters);
+            const o = await getJson(query);
+            return o;
+        }
+
+        async function getGitHubUser(user) {
+            const url = 'https://api.github.com/users/' + user;
+            const o = await getJson(url);
+            return o;
+        }
+
+        async function getGitHubRepoReadme(owner, repo) {
+            const api = '/repos/:owner/:repo/readme';
+            const parameters =  new Map([['owner', owner], ['repo', repo]]);
+
+            const o = await getGitHubApi(api, parameters);
+            return o;
+        }
+
+        async function getGitHubPathContents(owner, repo, path) {
+            // https://developer.github.com/v3/repos/contents/#get-contents
+            const api = '/repos/:owner/:repo/contents/:path';
+            const parameters = new Map([['owner', owner], ['repo', repo], ['path', path]]);
+
+            const o = await getGitHubApi(api, parameters);
+            return o;
+        }
+
+        async function getGitHubFileData(download_url) {
+            const response = await fetch(download_url);
+            const contents = await response.text();
+            return contents;
+        }
+
+        function reduceDirectoryItems(items) {
+            const reduced = items.map((file) => {
+                return {
+                    type: file.type,
+                    path: file.path,
+                    download_url: file.download_url
+                }
+            });
+
+            return reduced;
+        }
+
+        function getReduceFiles(reduceItems) {
+            return reduceItems.filter((file) => file.type === "file");
+        }
+
+        function getReduceDirectories(reduceItems) {
+            return reduceItems.filter((file) => file.type === "dir");
+        }
+
+
+        async function getGitHubFiles(owner, repo, path) {
+
+            const allFiles = [];
+            const unexploredDirectories = [path];
+            
+            while(unexploredDirectories.length > 0) {
+                
+                const directory = unexploredDirectories.shift();
+                const items = await getGitHubPathContents(owner, repo, directory);
+
+                const reduced = reduceDirectoryItems(items);
+                const files = getReduceFiles(reduced);
+                const directories = getReduceDirectories(reduced);
+
+                allFiles.push(...files);
+
+                const directoryPaths = directories.map((directory) => directory.path);
+                unexploredDirectories.push(...directoryPaths);
+            }
+            
+            return allFiles;
+        }
+
+
+        async function testGitHub() {
+
+            //const o = await getGitHubUser("wandyezj");
+            //const o = await getGitHubRepoReadme("wandyezj", "word-rhyme");
+            //const o = await getGitHubPathContents("wandyezj", "word-rhyme", "");
+            // const o = await getGitHubFiles("wandyezj", "word-rhyme", "");
+            //logMessage(JSON.stringify(o, null, 4));
+
+            const data = await getGitHubFileData('https://raw.githubusercontent.com/wandyezj/word-rhyme/master/README.md');
+            logMessage(data);
+        }
+
+        function getRandomWhole(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        function getRandomIndex(array) {
+            const max = array.length;
+            const index = getRandomWhole(max);
+            return array[index];
+        }
+
+
+        function hasWhiteSpace(s) {
+            return /\s/g.test(s);
+        }
+        async function getWordRhymes(word) {
+            const query = 'https://api.datamuse.com/words?rel_rhy=' + word;
+            console.log(query);
+            
+            const response = await fetch(query);
+            const o = await response.json();
+
+            // get the list of words
+            const list = o.map((item) => item.word).filter((word) => !hasWhiteSpace(word));
+
+            return list;
+        }
+
+        async function findRhyme() {
+
+            const word = getInputWord();
+
+            logMessage("");
+            if (word === "") {
+                logMessage("Invalid input word");
+            } 
+
+
+            const rhymes = await getWordRhymes(word);
+
+            //const joined = rhymes.reduce((previous, current)=> previous + ", " + current , "");
+            //logMessage(joined);
+            //logMessage(JSON.toString(rhymes));
+            if (rhymes.length === 0) {
+                logMessage("No Rhymes Found");
+            } else {
+                const rhyme = getRandomIndex(rhymes);
+                logMessage(rhyme);
+            }
+        } 
+
+        function getInputWord() {
+            const inputElement = document.getElementById("input-word");
+            const textInput = inputElement.value;
+            if (hasWhiteSpace(textInput)) {
+                return "";
+            }
+
+            return textInput;
+        }
+
+        function logMessage(message) {
+            const element = document.getElementById("message");
+            element.innerText = message;
+        }
+
+    </script>
+</head>
+
+
+<body>
+
+
+    <input type="text" id="input-word" value="sky"/>
+    <button type="button" onclick="testGitHub();">Test GitHub</button>
+
+    <p id="message"></p>
+
+</body>
+
+
+
+
+</html>
