@@ -65,7 +65,7 @@
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group" />
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Start Word Rhyme" />
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Word Rhyme" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Rhyme Words" />
