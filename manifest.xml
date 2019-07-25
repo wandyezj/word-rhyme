@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
-  <Id>0000000-0000-0000-0000-000000000000</Id>
+  <Id>00000000-0000-0000-0000-000000007357</Id>
   <Version>0.0.0.0</Version>
   <ProviderName>wandyezj</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
@@ -16,7 +16,7 @@
     <Host Name="Document"/>
   </Hosts>  
   <DefaultSettings>
-    <SourceLocation DefaultValue="word-rhyme.azurewebsites.net/taskpane.html"/>
+    <SourceLocation DefaultValue="https://word-rhyme.azurewebsites.net/taskpane.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">

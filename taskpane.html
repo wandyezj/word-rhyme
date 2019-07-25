@@ -8,16 +8,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contoso Task Pane Add-in</title>
+    <title>Word Rhyme</title>
 
     <!-- Office JavaScript API -->
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"/>
 
     <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
     <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
     
-    <!-- Template styles -->
-    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+    <!-- TaskPane CSS -->
+    <link rel="stylesheet" href="taskpane.css" />
+
+    <!-- TaskPane JacaScript -->
+    <script src="taskpane.js" />
 </head>
 
 <body class="ms-font-m ms-welcome ms-Fabric">
@@ -31,7 +34,7 @@
     </ol>
     
     <br>
-    <button id="run" class="ms-Button" onclick="run();">
+    <button id="run" class="ms-Button" onclick="run()">
         <span class="ms-Button-label">Rhyme Selection</span>
     </button>
     
