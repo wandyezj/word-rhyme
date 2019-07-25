@@ -5,11 +5,10 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "noEmitOnError": true,
-    "outDir": "lib",
-    "sourceMap": true,
-    "target": "es5",
+    "sourceMap": false,
+    "target": "esnext",
     "lib": [
-      "es2015",
+      "esnext",
       "dom"
     ]
   },
