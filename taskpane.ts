@@ -1,5 +1,8 @@
 async function run() {
-  return Word.run(async context => {
+  console.log("run word rhyme");
+
+  // note: word will be undefined if running in the browser
+  await Word.run(async context => {
 
     // insert a paragraph at the end of the document.
     const paragraph = context.document.body.insertParagraph("Hello World", Word.InsertLocation.end);
@@ -9,4 +12,5 @@ async function run() {
 
     await context.sync();
   });
+
 }
