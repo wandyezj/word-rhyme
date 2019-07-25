@@ -1,3 +1,4 @@
+Office.onReady(info => { });
 async function run() {
     console.log("run word rhyme");
     // note: word will be undefined if running in the browser
