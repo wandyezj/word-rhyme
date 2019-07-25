@@ -7,7 +7,8 @@
   },
   "license": "Unlicense",
   "scripts": {
-    "build": "./node_modules/.bin/tsc"
+    "build": "./node_modules/.bin/tsc",
+    "validate-manifest":"npx office-toolbox validate -m manifest.xml"
   },
   "dependencies": {},
   "devDependencies": {

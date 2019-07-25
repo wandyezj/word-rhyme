@@ -1,3 +1,4 @@
+// Must call on Ready or the application will not work
 Office.onReady(info => {});
 
 async function run() {

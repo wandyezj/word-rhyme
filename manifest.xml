@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>00000000-0000-0000-0000-000000007357</Id>
-  <Version>0.0.0.0</Version>
+  <Version>1.0.0.0</Version>
   <ProviderName>wandyezj</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Word Rhyme"/>
@@ -23,11 +23,6 @@
     <Hosts>
       <Host xsi:type="Document">
         <DesktopFormFactor>
-          <GetStarted>
-            <Title resid="GetStarted.Title"/>
-            <Description resid="GetStarted.Description"/>
-            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
-          </GetStarted>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
               <Group id="CommandsGroup">
@@ -66,16 +61,13 @@
         <bt:Image id="Icon.80x80" DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://word-rhyme.azurewebsites.net" />
         <bt:Url id="Taskpane.Url" DefaultValue="https://word-rhyme.azurewebsites.net/taskpane.html" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GetStarted.Title" DefaultValue="Word Rhyme" />
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group" />
         <bt:String id="TaskpaneButton.Label" DefaultValue="Start Word Rhyme" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="GetStarted.Description" DefaultValue="Start Rhyming Words" />
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Rhyme Words" />
       </bt:LongStrings>
     </Resources>
