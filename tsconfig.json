@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "noEmitOnError": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "target": "esnext",
     "lib": [
       "esnext",
