@@ -2,7 +2,32 @@
 Office.onReady();
 
 async function run() {
-    findRhyme();
+    const word = await getSelectedText();
+
+    // word error cases
+    if (hasWhiteSpace(word)) {
+        writeMessage("A space was selected, multiple words, thus rejected.");
+        return;
+    }
+
+    if (word.length > 28) {
+        writeMessage("The longest non-contrived and nontechnical word is antidisestablishmentarianism.");
+        return;
+    }
+
+    // show the word selected
+    writeWord(word);
+
+    const rhymes = await getWordRhymes(word);
+
+    if (rhymes.length === 0) {
+        writeMessage("No Rhymes to uncover, select another word to discover.");
+        return;
+    }
+    
+    // get a random rhyme
+    const rhyme = getRandomIndex(rhymes);
+    writeRhyme(rhyme);
 }
 
 function getRandomWhole(max) {
@@ -19,7 +44,7 @@ function hasWhiteSpace(s) {
     return /\s/g.test(s);
 }
 
-async function getWordRhymes(word) {
+async function getWordRhymesFromDatamuse(word) {
     const query = "https://api.datamuse.com/words?rel_rhy=" + word;
 
     const response = await fetch(query);
@@ -31,21 +56,27 @@ async function getWordRhymes(word) {
     return list;
 }
 
-async function findRhyme() {
-    const word = await getSelectedText();
+// dictionary to keep track of previous queries to reduce queries to datamuse
+const dictionary: Map<string, string[]> = new Map();
 
-    const rhymes = await getWordRhymes(word);
+async function getWordRhymes(word): Promise<string[]> {
 
-    if (rhymes.length === 0) {
-        writeRhyme("No Rhymes uncovered, select another word to discover.");
-    } else {
-        const rhyme = getRandomIndex(rhymes);
-        writeRhyme(rhyme);
+    let words = dictionary.get(word);
+
+    if (words === undefined) {
+        words = await getWordRhymesFromDatamuse(word);
+        // store words so that datamuse is not requeried.
+        dictionary.set(word, words);
     }
+
+    return words;
 }
 
+/**
+ * get teh currenty selected text in the word document
+ */
 async function getSelectedText() {
-    // Gets the current selection and changes the font color to red.
+    // Gets the current selection
 
     let selectedText = "";
     await Word.run(async (context) => {
@@ -61,6 +92,20 @@ async function getSelectedText() {
     return selectedText.trim();
 }
 
-function writeRhyme(word) {
-    document.getElementById("rhyme-id").innerText = word;
+/**
+ * write out the rhyming word
+ * @param word 
+ */
+function writeRhyme(rhyme) {
+    document.getElementById("rhyme").innerText = rhyme;
+}
+
+function writeWord(word) {
+    document.getElementById("word").innerText = word;
+}
+
+function writeMessage(message) {
+    writeWord("");
+    writeRhyme("");
+    document.getElementById("message").innerText = message;
 }
