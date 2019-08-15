@@ -3,10 +3,9 @@
     "allowJs": true,
     "baseUrl": ".",
     "experimentalDecorators": true,
-    "jsx": "react",
     "noEmitOnError": true,
     "sourceMap": true,
-    "target": "esnext",
+    "target": "es5",
     "lib": [
       "esnext",
       "dom"
