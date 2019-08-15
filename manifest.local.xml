@@ -14,7 +14,13 @@
   </AppDomains>
   <Hosts>
     <Host Name="Document"/>
-  </Hosts>  
+  </Hosts>
+  <Requirements>
+    <!-- Eliminate Office 2013 as an available platform by requiring this minimum requirement set -->
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="WordApi"/>
+    </Sets>
+  </Requirements>
   <DefaultSettings>
     <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
   </DefaultSettings>
@@ -72,4 +78,7 @@
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
+
 </OfficeApp>
+
+
