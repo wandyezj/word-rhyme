@@ -8,7 +8,7 @@
   <Description DefaultValue="Rhyme Words"/>
   <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-80.png"/>
-  <SupportUrl DefaultValue="https://word-rhyme.azurewebsites.net"/>
+  <SupportUrl DefaultValue="https://word-rhyme.azurewebsites.net/statements/support.md"/>
   <AppDomains>
     <AppDomain>word-rhyme.azurewebsites.net</AppDomain>
   </AppDomains>
