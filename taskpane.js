@@ -1,8 +1,9 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -40,7 +41,9 @@ function run() {
         var word, rhymes, rhyme;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getSelectedText()];
+                case 0:
+                    writeClear();
+                    return [4 /*yield*/, getSelectedText()];
                 case 1:
                     word = _a.sent();
                     // word error cases
@@ -163,8 +166,11 @@ function writeWord(word) {
     document.getElementById("word").innerText = word;
 }
 function writeMessage(message) {
+    document.getElementById("message").innerText = message;
+}
+function writeClear() {
     writeWord("");
     writeRhyme("");
-    document.getElementById("message").innerText = message;
+    writeMessage("");
 }
 //# sourceMappingURL=taskpane.js.map

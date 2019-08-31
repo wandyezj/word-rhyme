@@ -2,6 +2,7 @@
 Office.onReady();
 
 async function run() {
+    writeClear();
     const word = await getSelectedText();
 
     // word error cases
@@ -105,7 +106,11 @@ function writeWord(word) {
 }
 
 function writeMessage(message) {
+    document.getElementById("message").innerText = message;
+}
+
+function writeClear() {
     writeWord("");
     writeRhyme("");
-    document.getElementById("message").innerText = message;
+    writeMessage("");
 }
