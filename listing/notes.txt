@@ -1,0 +1,23 @@
+# Notes
+
+## TODO
+More pictures
+
+How to use the add in
+Home -> Add-In
+
+convert md to HTML pages
+
+
+## About maximum length of the short sentance
+
+"Quickly find rhymes for english words!"
+Plus an equivalent sentance length beneeth
+
+## About Maximum Length of long Description
+
+"Word Rhyme allows you to quickly discover rhymes for word you never considered"
+
+Then four more sentances.
+
+Need a way to break up the sentance structure.
