@@ -14,12 +14,9 @@ The Word Rhyme Add-In is perfect for classroom teachers and parents who want to 
 
 Everyone deserves privacy, and control over their data.
 
-Word Rhyme is committed to protecting your privacy and your data.
-
-Word Rhyme is powered by the datamuse API.
-
-Word Rhyme only sends the specific words you select to be rhymed to the datamuse API.
-
-The datamuse API deletes all logs of any queries every 24 hours. Please see the datamuse API privacy statement for more information: http://www.datamuse.com/api/#privacy
+* Word Rhyme is committed to protecting your privacy and your data.
+* Word Rhyme is powered by the datamuse API.
+* Word Rhyme only sends the specific words you select to be rhymed to the datamuse API.
+* The datamuse API deletes all logs of any queries every 24 hours. Please see the datamuse API privacy statement for more information: http://www.datamuse.com/api/#privacy
 
 Try Word Rhyme today!
