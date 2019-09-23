@@ -68,7 +68,7 @@ function getSelectedTextWord() {
                         }); })];
                 case 1:
                     _a.sent();
-                    return [2 /*return*/, selectedText.trim()];
+                    return [2 /*return*/, selectedText];
             }
         });
     });
@@ -78,7 +78,8 @@ function getSelectedTextOutlook() {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve) {
                     Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (result) {
-                        resolve(result.value.data);
+                        var selectedText = result.value.data;
+                        resolve(selectedText);
                     });
                 })];
         });
@@ -105,14 +106,15 @@ function getSelectedText() {
 }
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var word, rhymes, rhyme;
+        var selectedText, word, rhymes, rhyme;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     writeClear();
                     return [4 /*yield*/, getSelectedText()];
                 case 1:
-                    word = _a.sent();
+                    selectedText = _a.sent();
+                    word = selectedText.trim();
                     // word error cases
                     if (hasWhiteSpace(word)) {
                         writeMessage("A space was selected, multiple words, thus rejected.");

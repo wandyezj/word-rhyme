@@ -24,23 +24,27 @@ async function getSelectedTextWord() {
         selectedText = range.text;
     });
 
-    return selectedText.trim();
+    return selectedText;
 }
 
 async function getSelectedTextOutlook() {
     return new Promise<string>((resolve) => {
         Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, (result: Office.AsyncResult<any>)=> {
-            resolve(result.value.data);
+            const selectedText = result.value.data;
+            
+            resolve(selectedText);
         });
     });
 }
 
 
 async function getSelectedText() {
+
+    // Get text using the method specific to the host
     if (host === Office.HostType.Word) {
         return await getSelectedTextWord();
     }
-
+    
     if (host === Office.HostType.Outlook) {
         return await getSelectedTextOutlook();
     }
@@ -54,7 +58,10 @@ async function getSelectedText() {
 
 async function run() {
     writeClear();
-    const word = await getSelectedText();
+    const selectedText = await getSelectedText();
+    
+    // trim any text to remove starting and ending spaces
+    const word = selectedText.trim();
 
     // word error cases
     if (hasWhiteSpace(word)) {
