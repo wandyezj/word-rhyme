@@ -1,9 +1,8 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -35,17 +34,87 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 // On Ready function must be called in order for the add in to be registered.
-Office.onReady();
+var host = undefined;
+Office.onReady(function (info) {
+    host = info.host;
+    // Office.HostType.Word
+    // Office.HostType.Outlook
+});
+/**
+ * get the currenty selected text in the word document
+ */
+function getSelectedTextWord() {
+    return __awaiter(this, void 0, void 0, function () {
+        var selectedText;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    selectedText = "";
+                    return [4 /*yield*/, Word.run(function (context) { return __awaiter(_this, void 0, void 0, function () {
+                            var range;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        range = context.document.getSelection();
+                                        range.load("text");
+                                        return [4 /*yield*/, context.sync()];
+                                    case 1:
+                                        _a.sent();
+                                        selectedText = range.text;
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/, selectedText];
+            }
+        });
+    });
+}
+function getSelectedTextOutlook() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve) {
+                    Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (result) {
+                        var selectedText = result.value.data;
+                        resolve(selectedText);
+                    });
+                })];
+        });
+    });
+}
+function getSelectedText() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!(host === Office.HostType.Word)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, getSelectedTextWord()];
+                case 1: return [2 /*return*/, _a.sent()];
+                case 2:
+                    if (!(host === Office.HostType.Outlook)) return [3 /*break*/, 4];
+                    return [4 /*yield*/, getSelectedTextOutlook()];
+                case 3: return [2 /*return*/, _a.sent()];
+                case 4:
+                    console.log("Unsupported Host");
+                    return [2 /*return*/, "Unsupported"];
+            }
+        });
+    });
+}
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var word, rhymes, rhyme;
+        var selectedText, word, rhymes, rhyme;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     writeClear();
                     return [4 /*yield*/, getSelectedText()];
                 case 1:
-                    word = _a.sent();
+                    selectedText = _a.sent();
+                    word = selectedText.trim();
                     // word error cases
                     if (hasWhiteSpace(word)) {
                         writeMessage("A space was selected, multiple words, thus rejected.");
@@ -118,39 +187,6 @@ function getWordRhymes(word) {
                     dictionary.set(word, words);
                     _a.label = 2;
                 case 2: return [2 /*return*/, words];
-            }
-        });
-    });
-}
-/**
- * get teh currenty selected text in the word document
- */
-function getSelectedText() {
-    return __awaiter(this, void 0, void 0, function () {
-        var selectedText;
-        var _this = this;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    selectedText = "";
-                    return [4 /*yield*/, Word.run(function (context) { return __awaiter(_this, void 0, void 0, function () {
-                            var range;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        range = context.document.getSelection();
-                                        range.load("text");
-                                        return [4 /*yield*/, context.sync()];
-                                    case 1:
-                                        _a.sent();
-                                        selectedText = range.text;
-                                        return [2 /*return*/];
-                                }
-                            });
-                        }); })];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/, selectedText.trim()];
             }
         });
     });

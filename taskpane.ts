@@ -1,9 +1,67 @@
 // On Ready function must be called in order for the add in to be registered.
-Office.onReady();
+let host: Office.HostType = undefined;
+Office.onReady((info)=> {
+    host = info.host;
+    
+    // Office.HostType.Word
+    // Office.HostType.Outlook
+});
+
+/**
+ * get the currenty selected text in the word document
+ */
+async function getSelectedTextWord() {
+    // Gets the current selection
+
+    let selectedText = "";
+    await Word.run(async (context) => {
+        // would be neat to be able to highlight what was selected but this turns our to be pretty difficult
+        const range = context.document.getSelection();
+
+        range.load("text");
+
+        await context.sync();
+        selectedText = range.text;
+    });
+
+    return selectedText;
+}
+
+async function getSelectedTextOutlook() {
+    return new Promise<string>((resolve) => {
+        Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, (result: Office.AsyncResult<any>)=> {
+            const selectedText = result.value.data;
+            
+            resolve(selectedText);
+        });
+    });
+}
+
+
+async function getSelectedText() {
+
+    // Get text using the method specific to the host
+    if (host === Office.HostType.Word) {
+        return await getSelectedTextWord();
+    }
+    
+    if (host === Office.HostType.Outlook) {
+        return await getSelectedTextOutlook();
+    }
+
+    console.log("Unsupported Host");
+    return "Unsupported";
+}
+
+
+
 
 async function run() {
     writeClear();
-    const word = await getSelectedText();
+    const selectedText = await getSelectedText();
+    
+    // trim any text to remove starting and ending spaces
+    const word = selectedText.trim();
 
     // word error cases
     if (hasWhiteSpace(word)) {
@@ -73,25 +131,6 @@ async function getWordRhymes(word): Promise<string[]> {
     return words;
 }
 
-/**
- * get teh currenty selected text in the word document
- */
-async function getSelectedText() {
-    // Gets the current selection
-
-    let selectedText = "";
-    await Word.run(async (context) => {
-        // would be neat to be able to highlight what was selected but this turns our to be pretty difficult
-        const range = context.document.getSelection();
-
-        range.load("text");
-
-        await context.sync();
-        selectedText = range.text;
-    });
-
-    return selectedText.trim();
-}
 
 /**
  * write out the rhyming word
