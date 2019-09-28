@@ -10,7 +10,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>wandyezj</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Word Rhyme Local"/>
+  <DisplayName DefaultValue="Word Rhyme"/>
   <Description DefaultValue="Rhyme Words"/>
   <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-80.png"/>
@@ -87,8 +87,8 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://word-rhyme.azurewebsites.net/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="CommandsGroup.Label" DefaultValue="Word Rhyme Local"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Rhyme Local"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="Word Rhyme"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Rhyme"/>
         <bt:String id="ActionButton.Label" DefaultValue="Perform an action"/>
       </bt:ShortStrings>
       <bt:LongStrings>
