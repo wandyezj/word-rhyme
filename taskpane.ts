@@ -30,8 +30,12 @@ async function getSelectedTextWord() {
 async function getSelectedTextOutlook() {
     return new Promise<string>((resolve) => {
         Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, (result: Office.AsyncResult<any>)=> {
-            const selectedText = result.value.data;
+            const value = result.value;
             
+            const isEmpty = value.endPosition === value.startPosition;
+
+            const selectedText = isEmpty ? "" : value.data;
+ 
             resolve(selectedText);
         });
     });

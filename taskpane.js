@@ -78,7 +78,9 @@ function getSelectedTextOutlook() {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve) {
                     Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (result) {
-                        var selectedText = result.value.data;
+                        var value = result.value;
+                        var isEmpty = value.endPosition === value.startPosition;
+                        var selectedText = isEmpty ? "" : value.data;
                         resolve(selectedText);
                     });
                 })];
