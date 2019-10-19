@@ -33,16 +33,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-// On Ready function must be called in order for the add in to be registered.
 var host = undefined;
 Office.onReady(function (info) {
     host = info.host;
-    // Office.HostType.Word
-    // Office.HostType.Outlook
 });
-/**
- * get the currenty selected text in the word document
- */
 function getSelectedTextWord() {
     return __awaiter(this, void 0, void 0, function () {
         var selectedText;
@@ -51,24 +45,24 @@ function getSelectedTextWord() {
             switch (_a.label) {
                 case 0:
                     selectedText = "";
-                    return [4 /*yield*/, Word.run(function (context) { return __awaiter(_this, void 0, void 0, function () {
+                    return [4, Word.run(function (context) { return __awaiter(_this, void 0, void 0, function () {
                             var range;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
                                         range = context.document.getSelection();
                                         range.load("text");
-                                        return [4 /*yield*/, context.sync()];
+                                        return [4, context.sync()];
                                     case 1:
                                         _a.sent();
                                         selectedText = range.text;
-                                        return [2 /*return*/];
+                                        return [2];
                                 }
                             });
                         }); })];
                 case 1:
                     _a.sent();
-                    return [2 /*return*/, selectedText];
+                    return [2, selectedText];
             }
         });
     });
@@ -76,11 +70,9 @@ function getSelectedTextWord() {
 function getSelectedTextOutlook() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, new Promise(function (resolve) {
+            return [2, new Promise(function (resolve) {
                     Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (result) {
                         var value = result.value;
-                        // outlook returns string "null" if no text is selected.
-                        // check that some text was selected.
                         var isEmpty = value.endPosition === value.startPosition;
                         var selectedText = isEmpty ? "" : value.data;
                         resolve(selectedText);
@@ -94,16 +86,16 @@ function getSelectedText() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!(host === Office.HostType.Word)) return [3 /*break*/, 2];
-                    return [4 /*yield*/, getSelectedTextWord()];
-                case 1: return [2 /*return*/, _a.sent()];
+                    if (!(host === Office.HostType.Word)) return [3, 2];
+                    return [4, getSelectedTextWord()];
+                case 1: return [2, _a.sent()];
                 case 2:
-                    if (!(host === Office.HostType.Outlook)) return [3 /*break*/, 4];
-                    return [4 /*yield*/, getSelectedTextOutlook()];
-                case 3: return [2 /*return*/, _a.sent()];
+                    if (!(host === Office.HostType.Outlook)) return [3, 4];
+                    return [4, getSelectedTextOutlook()];
+                case 3: return [2, _a.sent()];
                 case 4:
                     console.log("Unsupported Host");
-                    return [2 /*return*/, "Unsupported"];
+                    return [2, "Unsupported"];
             }
         });
     });
@@ -115,31 +107,29 @@ function run() {
             switch (_a.label) {
                 case 0:
                     writeClear();
-                    return [4 /*yield*/, getSelectedText()];
+                    return [4, getSelectedText()];
                 case 1:
                     selectedText = _a.sent();
                     word = selectedText.trim();
-                    // word error cases
                     if (hasWhiteSpace(word)) {
                         writeMessage("A space was selected, multiple words, thus rejected.");
-                        return [2 /*return*/];
+                        return [2];
                     }
                     if (word.length > 28) {
                         writeMessage("The longest non-contrived and nontechnical word is antidisestablishmentarianism.");
-                        return [2 /*return*/];
+                        return [2];
                     }
-                    // show the word selected
                     writeWord(word);
-                    return [4 /*yield*/, getWordRhymes(word)];
+                    return [4, getWordRhymes(word)];
                 case 2:
                     rhymes = _a.sent();
                     if (rhymes.length === 0) {
                         writeMessage("No Rhymes to uncover, select another word to discover.");
-                        return [2 /*return*/];
+                        return [2];
                     }
                     rhyme = getRandomIndex(rhymes);
                     writeRhyme(rhyme);
-                    return [2 /*return*/];
+                    return [2];
             }
         });
     });
@@ -162,19 +152,18 @@ function getWordRhymesFromDatamuse(word) {
             switch (_a.label) {
                 case 0:
                     query = "https://api.datamuse.com/words?rel_rhy=" + word;
-                    return [4 /*yield*/, fetch(query)];
+                    return [4, fetch(query)];
                 case 1:
                     response = _a.sent();
-                    return [4 /*yield*/, response.json()];
+                    return [4, response.json()];
                 case 2:
                     o = _a.sent();
                     list = o.map(function (item) { return item.word; }).filter(function (word) { return !hasWhiteSpace(word); });
-                    return [2 /*return*/, list];
+                    return [2, list];
             }
         });
     });
 }
-// dictionary to keep track of previous queries to reduce queries to datamuse
 var dictionary = new Map();
 function getWordRhymes(word) {
     return __awaiter(this, void 0, void 0, function () {
@@ -183,22 +172,17 @@ function getWordRhymes(word) {
             switch (_a.label) {
                 case 0:
                     words = dictionary.get(word);
-                    if (!(words === undefined)) return [3 /*break*/, 2];
-                    return [4 /*yield*/, getWordRhymesFromDatamuse(word)];
+                    if (!(words === undefined)) return [3, 2];
+                    return [4, getWordRhymesFromDatamuse(word)];
                 case 1:
                     words = _a.sent();
-                    // store words so that datamuse is not requeried.
                     dictionary.set(word, words);
                     _a.label = 2;
-                case 2: return [2 /*return*/, words];
+                case 2: return [2, words];
             }
         });
     });
 }
-/**
- * write out the rhyming word
- * @param word
- */
 function writeRhyme(rhyme) {
     document.getElementById("rhyme").innerText = rhyme;
 }

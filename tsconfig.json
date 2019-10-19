@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "noEmitOnError": true,
     "sourceMap": true,
+    "removeComments": true,
     "target": "es5",
     "lib": [
       "esnext",
