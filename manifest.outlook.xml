@@ -12,8 +12,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Word Rhyme"/>
   <Description DefaultValue="Rhyme Words"/>
-  <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-80.png"/>
+  <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
+  <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://word-rhyme.azurewebsites.net/statements/support.md"/>
   <AppDomains>
     <AppDomain>word-rhyme.azurewebsites.net</AppDomain>
@@ -89,7 +89,6 @@
       <bt:ShortStrings>
         <bt:String id="CommandsGroup.Label" DefaultValue="Word Rhyme"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Rhyme"/>
-        <bt:String id="ActionButton.Label" DefaultValue="Perform an action"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Rhyme Words"/>

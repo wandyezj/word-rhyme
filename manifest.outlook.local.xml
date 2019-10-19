@@ -12,8 +12,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Word Rhyme Local"/>
   <Description DefaultValue="Rhyme Words"/>
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://localhost:3000/statements/support.md"/>
   <AppDomains>
     <AppDomain>localhost:3000</AppDomain>
@@ -89,7 +89,6 @@
       <bt:ShortStrings>
         <bt:String id="CommandsGroup.Label" DefaultValue="Word Rhyme Local"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Rhyme Local"/>
-        <bt:String id="ActionButton.Label" DefaultValue="Perform an action"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Rhyme Words"/>
