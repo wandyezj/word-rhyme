@@ -32,6 +32,8 @@ async function getSelectedTextOutlook() {
         Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, (result: Office.AsyncResult<any>)=> {
             const value = result.value;
             
+            // outlook returns string "null" if no text is selected.
+            // check that some text was selected.
             const isEmpty = value.endPosition === value.startPosition;
 
             const selectedText = isEmpty ? "" : value.data;
