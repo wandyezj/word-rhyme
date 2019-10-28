@@ -10,7 +10,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>wandyezj</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Word Rhyme"/>
+  <DisplayName DefaultValue="Word Rhyme for Outlook"/>
   <Description DefaultValue="Rhyme Words"/>
   <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
   <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
