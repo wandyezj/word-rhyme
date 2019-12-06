@@ -7,11 +7,32 @@ Office.onReady((info)=> {
     // Office.HostType.Outlook
 });
 
+// /**
+//  * log for testing
+//  * @param message 
+//  */
+// function log(message: string) {
+
+//     const logDiv = document.getElementById("log") as HTMLDivElement;
+
+//     logDiv.innerHTML = logDiv.innerHTML + `<p>${message}</p>`;
+
+// }
+
+// function runF(f: () => void) {
+//     try {
+//         f();
+//     } catch(e) {
+//         log(`ERROR: ${e}`);
+//     }
+// }
+
 /**
  * get the currenty selected text in the word document
  */
 async function getSelectedTextWord() {
     // Gets the current selection
+ 
 
     let selectedText = "";
     await Word.run(async (context) => {
@@ -30,14 +51,13 @@ async function getSelectedTextWord() {
 async function getSelectedTextOutlook() {
     return new Promise<string>((resolve) => {
         Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, (result: Office.AsyncResult<any>)=> {
-            const value = result.value;
-            
-            // outlook returns string "null" if no text is selected.
-            // check that some text was selected.
-            const isEmpty = value.endPosition === value.startPosition;
 
-            const selectedText = isEmpty ? "" : value.data;
- 
+            const value = result.value;
+
+            const text = value.data;
+
+            const selectedText = text? text : "";
+
             resolve(selectedText);
         });
     });
@@ -70,6 +90,11 @@ async function run() {
     const word = selectedText.trim();
 
     // word error cases
+    if (word === "") {
+        writeMessage("Highlight a word to rhyme!");
+        return;
+    }
+
     if (hasWhiteSpace(word)) {
         writeMessage("A space was selected, multiple words, thus rejected.");
         return;

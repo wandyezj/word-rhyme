@@ -73,8 +73,8 @@ function getSelectedTextOutlook() {
             return [2, new Promise(function (resolve) {
                     Office.context.mailbox.item.getSelectedDataAsync(Office.CoercionType.Text, function (result) {
                         var value = result.value;
-                        var isEmpty = value.endPosition === value.startPosition;
-                        var selectedText = isEmpty ? "" : value.data;
+                        var text = value.data;
+                        var selectedText = text ? text : "";
                         resolve(selectedText);
                     });
                 })];
@@ -111,6 +111,10 @@ function run() {
                 case 1:
                     selectedText = _a.sent();
                     word = selectedText.trim();
+                    if (word === "") {
+                        writeMessage("Highlight a word to rhyme!");
+                        return [2];
+                    }
                     if (hasWhiteSpace(word)) {
                         writeMessage("A space was selected, multiple words, thus rejected.");
                         return [2];
