@@ -6,7 +6,7 @@
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
   xsi:type="MailApp"
 >
-  <Id>10000000-0000-0000-0000-000000007357</Id>
+  <Id>10000000-1000-0000-0000-000000007357</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>wandyezj</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
@@ -16,7 +16,7 @@
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://localhost:3000/statements/support.md"/>
   <AppDomains>
-    <AppDomain>localhost:3000</AppDomain>
+    <AppDomain>https://localhost:3000</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Mailbox"/>

@@ -16,7 +16,7 @@
   <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://word-rhyme.azurewebsites.net/statements/support.md"/>
   <AppDomains>
-    <AppDomain>word-rhyme.azurewebsites.net</AppDomain>
+    <AppDomain>https://word-rhyme.azurewebsites.net</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Mailbox"/>
