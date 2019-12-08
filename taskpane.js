@@ -85,54 +85,88 @@ function getSelectedText() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    if (!(host === Office.HostType.Word)) return [3, 2];
+                case 0: return [4, Office.onReady()];
+                case 1:
+                    _a.sent();
+                    if (!(host === Office.HostType.Word)) return [3, 3];
                     return [4, getSelectedTextWord()];
-                case 1: return [2, _a.sent()];
-                case 2:
-                    if (!(host === Office.HostType.Outlook)) return [3, 4];
+                case 2: return [2, _a.sent()];
+                case 3:
+                    if (!(host === Office.HostType.Outlook)) return [3, 5];
                     return [4, getSelectedTextOutlook()];
-                case 3: return [2, _a.sent()];
-                case 4:
+                case 4: return [2, _a.sent()];
+                case 5:
                     console.log("Unsupported Host");
                     return [2, "Unsupported"];
             }
         });
     });
 }
+function buttonRhymeSelection() {
+    return document.getElementById("button-rhyme-selection");
+}
+var running = false;
+var previousWord = undefined;
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var selectedText, word, rhymes, rhyme;
+        var selectedText, word, message, rhymes, hasRhymes, rhyme;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    writeClear();
+                    if (running) {
+                        return [2];
+                    }
+                    running = true;
+                    clearRhyme();
+                    clearMessage();
                     return [4, getSelectedText()];
                 case 1:
                     selectedText = _a.sent();
                     word = selectedText.trim();
-                    if (word === "") {
-                        writeMessage("Highlight a word to rhyme!");
-                        return [2];
+                    message = undefined;
+                    if (word !== previousWord) {
+                        clearWord();
                     }
-                    if (hasWhiteSpace(word)) {
-                        writeMessage("A space was selected, multiple words, thus rejected.");
-                        return [2];
-                    }
-                    if (word.length > 28) {
-                        writeMessage("The longest non-contrived and nontechnical word is antidisestablishmentarianism.");
-                        return [2];
-                    }
-                    writeWord(word);
-                    return [4, getWordRhymes(word)];
+                    if (!(word === "")) return [3, 2];
+                    message = "Highlight a word to rhyme!";
+                    return [3, 8];
                 case 2:
+                    if (!hasWhiteSpace(word)) return [3, 3];
+                    message = "A space was selected, multiple words, thus rejected.";
+                    return [3, 8];
+                case 3:
+                    if (!(word.length > 28)) return [3, 4];
+                    message = "The longest non-contrived and nontechnical word is antidisestablishmentarianism.";
+                    return [3, 8];
+                case 4:
+                    writeWord(word);
+                    previousWord = word;
+                    rhymes = [];
+                    hasRhymes = wordRhymes(word);
+                    if (!(hasRhymes === undefined)) return [3, 6];
+                    buttonRhymeSelection().disabled = true;
+                    return [4, getWordRhymes(word)];
+                case 5:
                     rhymes = _a.sent();
+                    buttonRhymeSelection().disabled = false;
+                    return [3, 7];
+                case 6:
+                    rhymes = hasRhymes;
+                    _a.label = 7;
+                case 7:
                     if (rhymes.length === 0) {
-                        writeMessage("No Rhymes to uncover, select another word to discover.");
-                        return [2];
+                        message = "No Rhymes to uncover, select another word to discover.";
                     }
-                    rhyme = getRandomIndex(rhymes);
-                    writeRhyme(rhyme);
+                    else {
+                        rhyme = getRandomIndex(rhymes);
+                        writeRhyme(rhyme);
+                    }
+                    _a.label = 8;
+                case 8:
+                    if (message !== undefined) {
+                        writeMessage(message);
+                    }
+                    running = false;
                     return [2];
             }
         });
@@ -169,6 +203,10 @@ function getWordRhymesFromDatamuse(word) {
     });
 }
 var dictionary = new Map();
+function wordRhymes(word) {
+    var words = dictionary.get(word);
+    return words;
+}
 function getWordRhymes(word) {
     return __awaiter(this, void 0, void 0, function () {
         var words;
@@ -197,8 +235,14 @@ function writeMessage(message) {
     document.getElementById("message").innerText = message;
 }
 function writeClear() {
-    writeWord("");
+}
+function clearRhyme() {
     writeRhyme("");
+}
+function clearMessage() {
     writeMessage("");
+}
+function clearWord() {
+    writeWord("");
 }
 //# sourceMappingURL=taskpane.js.map

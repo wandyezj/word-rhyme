@@ -63,8 +63,10 @@ async function getSelectedTextOutlook() {
     });
 }
 
-
 async function getSelectedText() {
+
+    // need to wait for Office to be ready before the APIs can be called.
+    await Office.onReady();
 
     // Get text using the method specific to the host
     if (host === Office.HostType.Word) {
@@ -79,45 +81,92 @@ async function getSelectedText() {
     return "Unsupported";
 }
 
+function buttonRhymeSelection(): HTMLButtonElement {
+    return document.getElementById("button-rhyme-selection") as HTMLButtonElement;
+}
 
+/**
+ * Is the rhyme function already running?
+ */
+let running = false;
 
+let previousWord: string | undefined = undefined;
 
 async function run() {
-    writeClear();
+    if (running) {
+        // Only allow one instance to run at a time.
+        return;
+    }
+    
+    // only allow a single run
+    // since JavaScript is single threaded and functions run to completion there should never be a race condition
+    running = true;
+    
+    clearRhyme();
+    clearMessage();
+
     const selectedText = await getSelectedText();
     
     // trim any text to remove starting and ending spaces
     const word = selectedText.trim();
+    let message: undefined | string = undefined;
+
+    // Only modify what changes in the UI so there is no annoying refersh of the word from clearing then rewriting it.
+    if (word !== previousWord) {
+        clearWord();
+    }
 
     // word error cases
     if (word === "") {
-        writeMessage("Highlight a word to rhyme!");
-        return;
+        message = "Highlight a word to rhyme!";
+
+    } else if (hasWhiteSpace(word)) {
+        message = "A space was selected, multiple words, thus rejected.";
+
+    } else if (word.length > 28) {
+        message = "The longest non-contrived and nontechnical word is antidisestablishmentarianism.";
+
+    } else {
+
+        // show the word selected
+        writeWord(word);
+        previousWord = word;
+
+        let rhymes = [];
+        const hasRhymes = wordRhymes(word);
+
+        if (hasRhymes === undefined) {
+
+            // only disable the buttonw when loading in case it takes a while
+            // the disable changes the color of the button to indicate loading
+            buttonRhymeSelection().disabled = true;
+            
+            rhymes = await getWordRhymes(word);
+            
+            buttonRhymeSelection().disabled = false;
+        } else {
+            rhymes = hasRhymes;
+        }
+
+        
+        if (rhymes.length === 0) {
+            message = "No Rhymes to uncover, select another word to discover.";
+
+        } else {
+            // get a random rhyme
+            const rhyme = getRandomIndex(rhymes);
+            writeRhyme(rhyme);
+        }
     }
 
-    if (hasWhiteSpace(word)) {
-        writeMessage("A space was selected, multiple words, thus rejected.");
-        return;
+    if (message !== undefined) {
+        writeMessage(message);
     }
 
-    if (word.length > 28) {
-        writeMessage("The longest non-contrived and nontechnical word is antidisestablishmentarianism.");
-        return;
-    }
-
-    // show the word selected
-    writeWord(word);
-
-    const rhymes = await getWordRhymes(word);
-
-    if (rhymes.length === 0) {
-        writeMessage("No Rhymes to uncover, select another word to discover.");
-        return;
-    }
+    // enable another run
+    // since JavaScript is single threaded and functions run to completion there should never be a race condition
+    running = false;
     
-    // get a random rhyme
-    const rhyme = getRandomIndex(rhymes);
-    writeRhyme(rhyme);
 }
 
 function getRandomWhole(max) {
@@ -148,6 +197,11 @@ async function getWordRhymesFromDatamuse(word) {
 
 // dictionary to keep track of previous queries to reduce queries to datamuse
 const dictionary: Map<string, string[]> = new Map();
+
+function wordRhymes(word): string[] | undefined {
+    let words = dictionary.get(word);
+    return words;
+}
 
 async function getWordRhymes(word): Promise<string[]> {
 
@@ -180,7 +234,19 @@ function writeMessage(message) {
 }
 
 function writeClear() {
-    writeWord("");
+
+    
+    
+}
+
+function clearRhyme() {
     writeRhyme("");
+}
+
+function clearMessage() {
     writeMessage("");
+}
+
+function clearWord() {
+    writeWord("");
 }

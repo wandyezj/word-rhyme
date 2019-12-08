@@ -14,7 +14,7 @@
     "localhost-certificates-install": "npx office-addin-dev-certs install",
     "localhost-certificates-install-i-am-admin": "npx office-addin-dev-certs install --machine",
     "localhost-certificates-verify": "npx office-addin-dev-certs verify",
-    "enable-esktop-outlook":"CheckNetIsolation LoopbackExempt -a -n=\"microsoft.win32webviewhost_cw5n1h2txyewy\"",
+    "enable-desktop-outlook":"CheckNetIsolation LoopbackExempt -a -n=\"microsoft.win32webviewhost_cw5n1h2txyewy\"",
     "server": "node_modules/.bin/http-server %CD% --ssl --cert %USERPROFILE%\\.office-addin-dev-certs\\localhost.crt --key %USERPROFILE%\\.office-addin-dev-certs\\localhost.key -c-1 --cors -p 3000"
   },
   "dependencies": {},

@@ -21,9 +21,15 @@
 }
 
 #button-rhyme-selection:hover {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     color: white;
 }
+
+#button-rhyme-selection:disabled {
+    background-color: #54c558;
+    color: white;
+} 
+
 
 #credit {
     font-size:0.5em;
