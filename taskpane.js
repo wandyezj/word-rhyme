@@ -195,12 +195,15 @@ function hasWhiteSpace(s) {
 }
 function getWordRhymesFromDatamuse(word) {
     return __awaiter(this, void 0, void 0, function () {
-        var query, response, o, list;
+        var query, request, response, o, list;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     query = "https://api.datamuse.com/words?rel_rhy=" + word;
-                    return [4, fetch(query)];
+                    request = new Request(query, {
+                        mode: 'cors'
+                    });
+                    return [4, fetch(request)];
                 case 1:
                     response = _a.sent();
                     return [4, response.json()];
