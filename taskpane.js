@@ -155,7 +155,7 @@ function run() {
                 case 7:
                     e_1 = _a.sent();
                     console.error(e_1);
-                    rhymes = ["An error! Oh my! Please retry."];
+                    rhymes = ["An error! Oh my! Give another word a try."];
                     return [3, 8];
                 case 8:
                     buttonRhymeSelection().disabled = false;

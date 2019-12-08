@@ -146,7 +146,7 @@ async function run() {
             } catch(e) {
                 console.error(e);
                 // set rhymes to jump past the message
-                rhymes = ["An error! Oh my! Please retry."];
+                rhymes = ["An error! Oh my! Give another word a try."];
             }
 
             buttonRhymeSelection().disabled = false;
