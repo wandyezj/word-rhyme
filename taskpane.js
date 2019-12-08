@@ -109,7 +109,7 @@ var running = false;
 var previousWord = undefined;
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var selectedText, word, message, rhymes, hasRhymes, rhyme;
+        var selectedText, word, message, rhymes, hasRhymes, e_1, rhyme;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -129,31 +129,41 @@ function run() {
                     }
                     if (!(word === "")) return [3, 2];
                     message = "Highlight a word to rhyme!";
-                    return [3, 8];
+                    return [3, 11];
                 case 2:
                     if (!hasWhiteSpace(word)) return [3, 3];
                     message = "A space was selected, multiple words, thus rejected.";
-                    return [3, 8];
+                    return [3, 11];
                 case 3:
                     if (!(word.length > 28)) return [3, 4];
                     message = "The longest non-contrived and nontechnical word is antidisestablishmentarianism.";
-                    return [3, 8];
+                    return [3, 11];
                 case 4:
                     writeWord(word);
                     previousWord = word;
                     rhymes = [];
                     hasRhymes = wordRhymes(word);
-                    if (!(hasRhymes === undefined)) return [3, 6];
+                    if (!(hasRhymes === undefined)) return [3, 9];
                     buttonRhymeSelection().disabled = true;
-                    return [4, getWordRhymes(word)];
+                    _a.label = 5;
                 case 5:
-                    rhymes = _a.sent();
-                    buttonRhymeSelection().disabled = false;
-                    return [3, 7];
+                    _a.trys.push([5, 7, , 8]);
+                    return [4, getWordRhymes(word)];
                 case 6:
-                    rhymes = hasRhymes;
-                    _a.label = 7;
+                    rhymes = _a.sent();
+                    return [3, 8];
                 case 7:
+                    e_1 = _a.sent();
+                    console.error(e_1);
+                    rhymes = ["An error! Oh my! Please retry."];
+                    return [3, 8];
+                case 8:
+                    buttonRhymeSelection().disabled = false;
+                    return [3, 10];
+                case 9:
+                    rhymes = hasRhymes;
+                    _a.label = 10;
+                case 10:
                     if (rhymes.length === 0) {
                         message = "No Rhymes to uncover, select another word to discover.";
                     }
@@ -161,8 +171,8 @@ function run() {
                         rhyme = getRandomIndex(rhymes);
                         writeRhyme(rhyme);
                     }
-                    _a.label = 8;
-                case 8:
+                    _a.label = 11;
+                case 11:
                     if (message !== undefined) {
                         writeMessage(message);
                     }

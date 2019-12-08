@@ -141,8 +141,14 @@ async function run() {
             // the disable changes the color of the button to indicate loading
             buttonRhymeSelection().disabled = true;
             
-            rhymes = await getWordRhymes(word);
-            
+            try {
+                rhymes = await getWordRhymes(word);
+            } catch(e) {
+                console.error(e);
+                // set rhymes to jump past the message
+                rhymes = ["An error! Oh my! Please retry."];
+            }
+
             buttonRhymeSelection().disabled = false;
         } else {
             rhymes = hasRhymes;
