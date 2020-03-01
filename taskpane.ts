@@ -192,11 +192,9 @@ function hasWhiteSpace(s) {
 async function getWordRhymesFromDatamuse(word) {
     const query = "https://api.datamuse.com/words?rel_rhy=" + word;
 
-    const request = new Request(query, {
+    const response = await fetch(query, {
         mode: 'cors'
     });
-
-    const response = await fetch(request);
     const o = await response.json();
 
     // get the list of words
