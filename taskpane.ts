@@ -195,6 +195,7 @@ async function getWordRhymesFromDatamuse(word) {
     const response = await fetch(query, {
         mode: 'cors'
     });
+
     const o = await response.json();
 
     // get the list of words
