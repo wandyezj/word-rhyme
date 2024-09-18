@@ -7,7 +7,7 @@
   <DisplayName DefaultValue="Word Rhyme Local"/>
   <Description DefaultValue="Rhyme Words"/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://localhost:3000/statements/support.md"/>
   <AppDomains>
     <AppDomain>localhost:3000</AppDomain>
@@ -80,5 +80,3 @@
   </VersionOverrides>
 
 </OfficeApp>
-
-
