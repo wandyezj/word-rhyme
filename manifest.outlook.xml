@@ -12,7 +12,7 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Word Rhyme for Outlook"/>
   <Description DefaultValue="Rhyme Words"/>
-  <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
+  <IconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://word-rhyme.azurewebsites.net/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://word-rhyme.azurewebsites.net/statements/support.md"/>
   <AppDomains>
